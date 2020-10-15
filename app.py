@@ -24,6 +24,10 @@ print(df['8/25/20'])
 # BUILD INDICATORS
 # Daily positives for indicators
 daily_totals = tf.get_daily_positives(df)
+print(' daily ')
+print(df)
+print(' daily totals ')
+print(daily_totals)
 
 # Main indicator
 fig_total = pt.get_main_indicator(daily_totals)
@@ -41,6 +45,9 @@ df_aggregated = tf.aggregated_totals(df)
 
 # Line chart
 fig_line = pt.get_line_chart(df_aggregated)
+daily_line = pt.get_line_chartv2(daily_totals, 'Cases by Date')
+daily_line_by_school = pt.school_chart(df,'hello')
+#pt.get_line_chartv3(df,'Cases by School')
 
 # ------------------------------------------------------------------------------
 # BUILD BAR CHART
@@ -105,6 +112,22 @@ app.layout = html.Div([
                       }
                       )
         ], className="six columns"),
+    ], className="row"),
+    html.Div([
+        html.Div([
+             dcc.Graph(style={'height': '600px'}, id='g10', figure=daily_line_by_school,
+                       config={
+                 'displayModeBar': False
+             }
+             )
+             ], className="six columns"),
+        html.Div([
+                 dcc.Graph(style={'height': '600px'}, id='g11', figure=daily_line,
+                           config={
+                     'displayModeBar': False
+                 }
+                 )
+                 ], className="six columns"),
     ], className="row"),
     html.Div([
         html.Div([
